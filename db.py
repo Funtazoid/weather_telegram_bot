@@ -50,3 +50,19 @@ def get_user_geo(tg_id):
         cursor.close()
         print(e)
         return geo
+
+
+def put_user_geo(tg_id, geo):
+    hash_id = hashlib.md5(str(tg_id).encode()).hexdigest()
+    cursor = connect.cursor()
+    cursor.execute("UPDATE users SET geo = ? WHERE tgid = ?", (geo, hash_id))
+    connect.commit()
+    cursor.close()
+
+
+def put_user_key(tg_id, key):
+    hash_id = hashlib.md5(str(tg_id).encode()).hexdigest()
+    cursor = connect.cursor()
+    cursor.execute("UPDATE users SET owa_key = ? WHERE tgid = ?", (key, hash_id))
+    connect.commit()
+    cursor.close()
